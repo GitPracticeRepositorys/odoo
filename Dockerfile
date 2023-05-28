@@ -5,13 +5,14 @@ FROM odoo:14
 LABEL maintainer="raja <raja@143.gmail.com>"
 
 # Set the Odoo configuration options
-ENV ODOO_DATABASE=odoo \
-    ODOO_USER=your_username \
-    ODOO_PASSWORD=your_password
+ENV ODOO_USER=your_username \
+    ODOO_PASSWORD=your_password \
+    ODOO_DATABASE=odoo
 
 # Install additional dependencies
+USER root
 RUN set -e; \
-    apt-get update && apt-get install -y --no-install-recommends \
+    apt-get update --fix-missing && apt-get install -y --no-install-recommends \
         # Add any additional dependencies here, e.g., postgresql-client \
         && rm -rf /var/lib/apt/lists/*
 

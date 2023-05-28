@@ -3,7 +3,7 @@
 trigger:
   branches:
     exclude:
-      - '*'
+      - '16.0'
 
 jobs:
   - job: BuildAndPushDockerImage
@@ -18,7 +18,7 @@ jobs:
         displayName: 'Build and Push'
         inputs:
           containerRegistry: 'Docker-Hub-Connection'
-          repository: 'shivakrishna99'
+          repository: 'shivakrishna99/az-Odoo'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
           buildContext: '.'

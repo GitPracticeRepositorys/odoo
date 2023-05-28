@@ -9,19 +9,27 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
 
-    variables:
-      imageName: 'az-odoo' # Set the desired image name here
-      imageTag: 'latest'  # Set the desired image tag here
-
     steps:
       - checkout: self
 
       - task: Docker@2
-        displayName: 'Build and Push'
+        displayName: 'Build Docker image'
         inputs:
+          command: 'build'
           containerRegistry: 'Docker-Hub-Connection'
-          repository: 'shivakrishna99'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
-          buildContext: '.'
-          tags: '$(imageName):$(imageTag)'
+          repository: 'shivakrishna99/odoo'
+          dockerfile: '**/Dockerfile'
+          buildContext: '$(Build.SourcesDirectory)'
+          tags: |
+            latest
+            $(Build.BuildId)
+
+      - task: Docker@2
+        displayName: 'Push Docker image'
+        inputs:
+          command: 'push'
+          containerRegistry: 'Docker-Hub-Connection'
+          repository: 'shivakrishna99/odoo'
+          tags: |
+            latest
+            $(Build.BuildId)

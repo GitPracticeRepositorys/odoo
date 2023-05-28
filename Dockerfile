@@ -27,3 +27,7 @@ EXPOSE 8069
 
 # Set the default command to run when the container starts
 CMD ["odoo"]
+
+# Tag the image as 'latest'
+ARG IMAGE_TAG=latest
+ENV IMAGE_TAG=${IMAGE_TAG}

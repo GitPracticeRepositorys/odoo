@@ -1,25 +1,25 @@
-name: Docker Build and Push
+# This is a YAML configuration file to build and push a Docker image
 
-on:
-  push:
-    branches:
-      - 16.0
+trigger:
+  branches:
+    exclude:
+      - '*'
 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+pr jobs:
+  - job: BuildAndPushDockerImage
+    displayName: 'Build and Push Docker Image'
+    pool:
+      vmImage: 'ubuntu-latest'
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - checkout: self
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: shivakrishna99/az-odoo:latest
+      - task: Docker@2
+        displayName: 'Build and Push'
+        inputs:
+          containerRegistry: 'Docker-hub-connection'
+          repository: 'shivakrishna99'
+          command: 'buildAndPush'
+          Dockerfile: '**/Dockerfile'
+          buildContext: '.'
+          tags: 'latest'

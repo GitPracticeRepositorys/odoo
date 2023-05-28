@@ -1,5 +1,3 @@
-# This is a YAML configuration file to build and push a Docker image
-
 trigger:
   branches:
     exclude:
@@ -22,4 +20,4 @@ jobs:
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
           buildContext: '.'
-          tags: 'latest'
+          tags: '$(IMAGE_TAG)'

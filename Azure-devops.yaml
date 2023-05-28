@@ -17,7 +17,7 @@ pr jobs:
       - task: Docker@2
         displayName: 'Build and Push'
         inputs:
-          containerRegistry: 'Docker-hub-connection'
+          containerRegistry: 'Docker-Hub-Connection'
           repository: 'shivakrishna99'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
